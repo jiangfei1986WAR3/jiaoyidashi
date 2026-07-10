@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Keep the reusable system clean. Do not commit live-account artifacts.
+market-scans/
+signal-plans/
+account-snapshots/
+positions/
+*.key
+*.pem
+*.env
+.env
+
