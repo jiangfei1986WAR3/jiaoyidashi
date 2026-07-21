@@ -30,6 +30,20 @@ Use this skill to turn a trading-analysis plan into a monitored signal checklist
 6. For Codex heartbeat monitoring, create/update an app heartbeat automation and include the same plan rules in its prompt. Heartbeats may not guarantee local sound; use the script for reliable audible alerts.
 7. Alert only when a trigger, near-trigger, invalidation, or market-filter risk appears. Keep quiet status short.
 
+## Candle-Aligned Scheduling
+
+- Separate the live-price layer from the closed-candle confirmation layer. Refresh mark price on every run, but only treat the latest fully closed candle as confirmation data.
+- For monitors that confirm on `15m` candles and check every five minutes, align heartbeat runs to minutes `01,06,11,16,21,26,31,36,41,46,51,56` of each hour. This reads new `15m` candles about one minute after the standard `00,15,30,45` closes while preserving five-minute live-price checks.
+- Between two `15m` closes, reuse the same closed-candle close, volume ratio, and taker-buy ratio; only live mark price and other live fields change.
+- If exact minute alignment is unavailable, state the expected post-close delay and keep using the latest fully closed candle.
+
+## Entry-Band States
+
+- Use `PRICE_BREAK_ONLY` when live price crosses the trigger before a closed-candle confirmation.
+- Use `OVEREXTENDED_LIVE` when live price moves beyond the entry-band ceiling before confirmation. Warn not to chase, but do not permanently invalidate the setup; allow a return to the entry band before candle close.
+- Use `MISSED_ENTRY` only when the latest fully closed confirmation candle closes beyond the entry-band ceiling, or when a previously confirmed trigger is later observed outside the band without an allowed retest rule.
+- Keep `TRIGGERED` dependent on the plan's closed-candle, volume, order-flow, market-filter, and current-entry-band requirements.
+
 ## Alert Levels
 
 - `DONT_NOTIFY`: no meaningful trigger.
