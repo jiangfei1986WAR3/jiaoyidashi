@@ -2,12 +2,13 @@
 
 Private backup of the Codex trading skill system.
 
-This repository contains the reusable skill layer for Binance USDT perpetual
-futures analysis, scanning, execution planning, risk sizing, signal monitoring,
-and trade review.
+This repository contains the reusable skill layer for evidence-grounded market
+reasoning, Binance USDT perpetual futures analysis, scanning, execution planning,
+risk sizing, signal monitoring, and trade review.
 
 ## Contents
 
+- `skills/evidence-reasoning-kernel`: upstream evidence audit, competing-hypothesis, scenario, and calibrated-confidence layer.
 - `skills/trading-command-center`: workflow router for scans, plans, monitoring, and reviews.
 - `skills/binance-market-scanner`: public Binance USDT perpetual scanner.
 - `skills/trading-analysis`: trading framework, source references, entry/exit and volume-price rules.
@@ -68,4 +69,3 @@ Known paths that may need adjustment after moving machines:
   wallet files, or personal credentials.
 - The included scripts use public market data only and do not place orders.
 - All trade outputs are decision support for manual execution.
-
